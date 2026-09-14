@@ -11,14 +11,18 @@
             theme: {
                 extend: {
                     colors: {
-                        navy: '#0f172a',
-                        'navy-light': '#1e293b',
-                        'navy-lighter': '#334155',
-                        cyan: '#38bdf8',
-                        'cyan-dark': '#0ea5e9',
+                        navy: '#0a0f1c',
+                        'navy-light': '#111827',
+                        'navy-lighter': '#1f2937',
+                        cyan: '#06b6d4',
+                        'cyan-light': '#22d3ee',
+                        'cyan-dark': '#0891b2',
+                        purple: '#8b5cf6',
+                        'purple-dark': '#7c3aed',
                     },
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
                     }
                 }
             }
@@ -26,114 +30,208 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-navy text-gray-300 font-sans">
+<body class="bg-navy text-gray-300 font-sans overflow-x-hidden">
+
+    <!-- Cursor glow -->
+    <div id="cursor-glow" class="cursor-glow"></div>
+
+    <!-- Particle canvas -->
+    <canvas id="particles" class="fixed inset-0 z-0 pointer-events-none"></canvas>
 
     <!-- Navbar -->
-    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 bg-navy/80 backdrop-blur-md border-b border-white/5">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="#hero" class="text-xl font-bold text-white tracking-tight">
-                Erri<span class="text-cyan">.</span>
+    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-500">
+        <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+            <a href="#hero" class="text-xl font-bold text-white tracking-tight relative group">
+                <span class="relative z-10">Erri</span><span class="text-cyan relative z-10">.</span>
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan to-purple group-hover:w-full transition-all duration-300"></span>
             </a>
             <!-- Desktop Menu -->
-            <ul class="hidden md:flex items-center gap-8 text-sm font-medium">
-                <li><a href="#about" class="nav-link hover:text-cyan transition">About</a></li>
-                <li><a href="#skills" class="nav-link hover:text-cyan transition">Skills</a></li>
-                <li><a href="#experience" class="nav-link hover:text-cyan transition">Experience</a></li>
-                <li><a href="#projects" class="nav-link hover:text-cyan transition">Projects</a></li>
-                <li><a href="#contact" class="nav-link hover:text-cyan transition">Contact</a></li>
-            </ul>
+            <div class="hidden md:flex items-center gap-1">
+                <a href="#about" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white transition-all duration-300 relative">About</a>
+                <a href="#skills" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white transition-all duration-300 relative">Skills</a>
+                <a href="#experience" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white transition-all duration-300 relative">Experience</a>
+                <a href="#projects" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white transition-all duration-300 relative">Projects</a>
+                <a href="#contact" class="nav-link ml-2 px-5 py-2 rounded-lg text-sm font-medium bg-gradient-to-r from-cyan/10 to-purple/10 border border-cyan/20 text-cyan hover:border-cyan/50 hover:shadow-lg hover:shadow-cyan/10 transition-all duration-300">Contact</a>
+            </div>
             <!-- Mobile Hamburger -->
-            <button id="hamburger" class="md:hidden text-white text-2xl focus:outline-none">
-                <i class="fas fa-bars"></i>
+            <button id="hamburger" class="md:hidden text-white text-xl focus:outline-none w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white/5 transition">
+                <div class="hamburger-lines">
+                    <span></span><span></span><span></span>
+                </div>
             </button>
         </div>
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-            <ul class="flex flex-col gap-4 text-sm font-medium">
-                <li><a href="#about" class="mobile-link hover:text-cyan transition">About</a></li>
-                <li><a href="#skills" class="mobile-link hover:text-cyan transition">Skills</a></li>
-                <li><a href="#experience" class="mobile-link hover:text-cyan transition">Experience</a></li>
-                <li><a href="#projects" class="mobile-link hover:text-cyan transition">Projects</a></li>
-                <li><a href="#contact" class="mobile-link hover:text-cyan transition">Contact</a></li>
-            </ul>
+        <div id="mobile-menu" class="mobile-menu hidden md:hidden">
+            <div class="px-6 pb-6 pt-2 bg-navy-light/95 backdrop-blur-xl border-t border-white/5">
+                <div class="flex flex-col gap-1">
+                    <a href="#about" class="mobile-link px-4 py-3 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">About</a>
+                    <a href="#skills" class="mobile-link px-4 py-3 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Skills</a>
+                    <a href="#experience" class="mobile-link px-4 py-3 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Experience</a>
+                    <a href="#projects" class="mobile-link px-4 py-3 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all">Projects</a>
+                    <a href="#contact" class="mobile-link px-4 py-3 rounded-lg text-sm font-medium text-cyan hover:bg-cyan/5 transition-all">Contact</a>
+                </div>
+            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden">
-        <!-- Background gradient blobs -->
-        <div class="absolute top-1/4 -left-32 w-96 h-96 bg-cyan/10 rounded-full blur-3xl animate-pulse-slow"></div>
-        <div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-cyan/5 rounded-full blur-3xl animate-pulse-slow delay-1000"></div>
-        
-        <div class="text-center px-6 z-10 reveal">
-            <p class="text-cyan font-medium text-sm md:text-base tracking-widest uppercase mb-4 animate-fade-in">Hello, I'm</p>
-            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-4 animate-slide-up">
-                Erri Erwantoro
+    <section id="hero" class="min-h-screen flex items-center justify-center relative">
+        <!-- Gradient orbs -->
+        <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-cyan/8 rounded-full blur-[120px] animate-float"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-purple/8 rounded-full blur-[120px] animate-float-delayed"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan/3 rounded-full blur-[150px]"></div>
+
+        <!-- Grid pattern overlay -->
+        <div class="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
+
+        <div class="text-center px-6 z-10 max-w-4xl mx-auto">
+            <!-- Status badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-8 animate-fade-in">
+                <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+                <span class="text-xs font-medium text-gray-400">Available for collaboration</span>
+            </div>
+
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-[0.95] tracking-tight animate-slide-up">
+                <span class="block">Erri</span>
+                <span class="block bg-gradient-to-r from-cyan via-cyan-light to-purple bg-clip-text text-transparent">Erwantoro</span>
             </h1>
-            <p class="text-xl md:text-2xl text-gray-400 mb-8 animate-slide-up delay-200">
-                Digital Creator <span class="text-cyan">|</span> AI Enthusiast
+
+            <div class="flex items-center justify-center gap-3 mb-8 animate-slide-up-delay-1">
+                <span class="h-px w-12 bg-gradient-to-r from-transparent to-cyan/50"></span>
+                <p class="text-lg md:text-xl text-gray-400 font-light tracking-wide">Digital Creator</p>
+                <span class="text-cyan/30">•</span>
+                <p class="text-lg md:text-xl text-gray-400 font-light tracking-wide">AI Enthusiast</p>
+                <span class="h-px w-12 bg-gradient-to-l from-transparent to-purple/50"></span>
+            </div>
+
+            <p class="max-w-lg mx-auto text-gray-500 leading-relaxed mb-12 animate-slide-up-delay-2">
+                Eksplorasi tanpa batas di dunia teknologi — dari otomatisasi AI hingga membangun solusi digital yang bermakna.
             </p>
-            <p class="max-w-xl mx-auto text-gray-500 mb-10 animate-fade-in delay-400">
-                Suka eksplorasi hal baru, terutama yang berhubungan dengan teknologi.
-            </p>
-            <div class="flex items-center justify-center gap-4 animate-fade-in delay-600">
-                <a href="#contact" class="bg-cyan hover:bg-cyan-dark text-navy font-semibold px-8 py-3 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-cyan/25">
-                    Get In Touch
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up-delay-3">
+                <a href="#contact" class="group relative px-8 py-4 rounded-xl font-semibold text-sm overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-cyan to-purple rounded-xl"></div>
+                    <div class="absolute inset-[1px] bg-navy rounded-[10px] group-hover:bg-transparent transition-all duration-500"></div>
+                    <span class="relative z-10 bg-gradient-to-r from-cyan to-purple bg-clip-text text-transparent group-hover:text-white transition-all duration-500 flex items-center gap-2">
+                        Let's Connect
+                        <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </span>
                 </a>
-                <a href="#about" class="border border-cyan/30 text-cyan hover:bg-cyan/10 px-8 py-3 rounded-full transition-all duration-300">
-                    About Me
+                <a href="#projects" class="px-8 py-4 rounded-xl font-semibold text-sm text-gray-400 hover:text-white border border-white/10 hover:border-white/20 hover:bg-white/5 transition-all duration-300">
+                    View Projects
                 </a>
+            </div>
+
+            <!-- Tech stack marquee -->
+            <div class="mt-20 animate-fade-in-delay-4">
+                <p class="text-[10px] uppercase tracking-[0.3em] text-gray-600 mb-4">Exploring</p>
+                <div class="flex items-center justify-center gap-8 text-gray-600">
+                    <i class="fas fa-network-wired text-lg hover:text-cyan transition-colors duration-300" title="MikroTik"></i>
+                    <i class="fas fa-microchip text-lg hover:text-cyan transition-colors duration-300" title="IoT"></i>
+                    <i class="fas fa-robot text-lg hover:text-cyan transition-colors duration-300" title="AI"></i>
+                    <i class="fas fa-code text-lg hover:text-cyan transition-colors duration-300" title="Coding"></i>
+                    <i class="fas fa-server text-lg hover:text-cyan transition-colors duration-300" title="Server"></i>
+                </div>
             </div>
         </div>
 
         <!-- Scroll indicator -->
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-            <i class="fas fa-chevron-down text-cyan/50 text-xl"></i>
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
+            <div class="scroll-indicator">
+                <div class="scroll-dot"></div>
+            </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-24 px-6">
+    <section id="about" class="py-32 px-6 relative">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan/20 to-transparent"></div>
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16 reveal">
-                <p class="text-cyan text-sm font-medium tracking-widest uppercase mb-2">Get To Know</p>
-                <h2 class="text-4xl font-bold text-white">About Me</h2>
+            <div class="mb-20 reveal">
+                <p class="text-cyan text-xs font-mono tracking-[0.3em] uppercase mb-3">// about me</p>
+                <h2 class="text-4xl md:text-5xl font-bold text-white">Mengenal Lebih<br><span class="bg-gradient-to-r from-cyan to-purple bg-clip-text text-transparent">Dekat</span></h2>
             </div>
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <!-- Avatar / Decorative -->
-                <div class="flex justify-center reveal">
-                    <div class="relative">
-                        <div class="w-64 h-64 md:w-80 md:h-80 rounded-2xl bg-gradient-to-br from-cyan/20 to-navy-lighter overflow-hidden border border-cyan/10 flex items-center justify-center">
-                            <i class="fas fa-user-astronaut text-8xl text-cyan/30"></i>
+
+            <div class="grid lg:grid-cols-5 gap-12 items-start">
+                <!-- Avatar -->
+                <div class="lg:col-span-2 reveal">
+                    <div class="relative group">
+                        <!-- Main card -->
+                        <div class="relative rounded-3xl overflow-hidden aspect-square bg-gradient-to-br from-navy-lighter to-navy border border-white/5">
+                            <!-- Animated gradient border on hover -->
+                            <div class="absolute inset-0 bg-gradient-to-br from-cyan/20 via-transparent to-purple/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="text-center">
+                                    <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-cyan/20 to-purple/20 flex items-center justify-center border border-white/10">
+                                        <span class="text-5xl font-black bg-gradient-to-r from-cyan to-purple bg-clip-text text-transparent">E</span>
+                                    </div>
+                                    <p class="text-white font-semibold">Erri Erwantoro</p>
+                                    <p class="text-gray-500 text-sm">Digital Creator</p>
+                                </div>
+                            </div>
+                            <!-- Decorative dots -->
+                            <div class="absolute top-4 right-4 grid grid-cols-3 gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-cyan/30"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-cyan/20"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-cyan/10"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-cyan/20"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-cyan/10"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-transparent"></span>
+                            </div>
                         </div>
-                        <div class="absolute -bottom-4 -right-4 w-64 h-64 md:w-80 md:h-80 rounded-2xl border border-cyan/20 -z-10"></div>
+                        <!-- Floating badges -->
+                        <div class="absolute -right-3 top-8 px-3 py-2 bg-navy-light border border-white/10 rounded-xl shadow-2xl animate-float-badge">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-graduation-cap text-cyan text-xs"></i>
+                                <span class="text-xs text-white font-medium">S1 Teknik Elektro</span>
+                            </div>
+                        </div>
+                        <div class="absolute -left-3 bottom-16 px-3 py-2 bg-navy-light border border-white/10 rounded-xl shadow-2xl animate-float-badge-delayed">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-briefcase text-purple text-xs"></i>
+                                <span class="text-xs text-white font-medium">Staff Teknisi</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!-- About Text -->
-                <div class="reveal">
-                    <p class="text-gray-400 leading-relaxed mb-6">
-                        Saya <span class="text-white font-semibold">Erri Erwantoro</span>, seorang Digital Creator yang selalu antusias mencoba hal-hal baru, terutama yang berkaitan dengan dunia teknologi.
+
+                <!-- About content -->
+                <div class="lg:col-span-3 space-y-6 reveal">
+                    <p class="text-gray-400 leading-relaxed text-lg">
+                        Saya <span class="text-white font-semibold">Erri Erwantoro</span> — seorang yang selalu penasaran dengan hal-hal baru di dunia teknologi. Bagi saya, teknologi bukan sekadar alat, tapi <span class="text-cyan">playground yang nggak ada habisnya</span>.
                     </p>
-                    <p class="text-gray-400 leading-relaxed mb-6">
-                        Lulusan <span class="text-white">SMK Negeri 2 Surakarta</span> jurusan Teknik Komputer dan Jaringan, kemudian melanjutkan studi di <span class="text-white">Universitas Muhammadiyah Surakarta</span> jurusan Teknik Elektro.
+                    <p class="text-gray-400 leading-relaxed">
+                        Lulusan <span class="text-white">SMK Negeri 2 Surakarta</span> jurusan Teknik Komputer & Jaringan, kemudian melanjutkan studi <span class="text-white">S1 Teknik Elektro</span> di Universitas Muhammadiyah Surakarta.
                     </p>
-                    <p class="text-gray-400 leading-relaxed mb-8">
-                        Saat ini sedang gemar ngulik AI — mulai dari otomatisasi hingga iseng bikin web, aplikasi komputer, maupun Android. Bagi saya, teknologi bukan sekadar alat, tapi playground yang nggak ada habisnya.
+                    <p class="text-gray-400 leading-relaxed">
+                        Saat ini sedang gemar ngulik AI — mulai dari otomatisasi, bikin web, aplikasi komputer, sampai Android. Kalau ada teknologi baru, pasti pengen dicoba.
                     </p>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-navy-light p-4 rounded-xl border border-white/5 text-center">
-                            <i class="fas fa-graduation-cap text-cyan text-2xl mb-2"></i>
-                            <p class="text-white font-semibold text-lg">S1</p>
-                            <p class="text-gray-500 text-sm">Teknik Elektro</p>
+
+                    <!-- Stats cards -->
+                    <div class="grid grid-cols-3 gap-4 pt-6">
+                        <div class="stat-card p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-cyan/20 transition-all duration-500 group">
+                            <div class="text-2xl font-bold text-white mb-1 flex items-baseline gap-1">
+                                <span class="counter" data-target="2">0</span>
+                                <span class="text-cyan text-lg">+</span>
+                            </div>
+                            <p class="text-gray-500 text-xs">Pendidikan</p>
                         </div>
-                        <div class="bg-navy-light p-4 rounded-xl border border-white/5 text-center">
-                            <i class="fas fa-briefcase text-cyan text-2xl mb-2"></i>
-                            <p class="text-white font-semibold text-lg">Teknisi</p>
-                            <p class="text-gray-500 text-sm">Univ. Duta Bangsa</p>
+                        <div class="stat-card p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-purple/20 transition-all duration-500 group">
+                            <div class="text-2xl font-bold text-white mb-1 flex items-baseline gap-1">
+                                <span class="counter" data-target="5">0</span>
+                                <span class="text-purple text-lg">+</span>
+                            </div>
+                            <p class="text-gray-500 text-xs">Skills</p>
+                        </div>
+                        <div class="stat-card p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-cyan/20 transition-all duration-500 group">
+                            <div class="text-2xl font-bold text-white mb-1 flex items-baseline gap-1">
+                                <span class="text-cyan">∞</span>
+                            </div>
+                            <p class="text-gray-500 text-xs">Rasa Penasaran</p>
                         </div>
                     </div>
                 </div>
@@ -142,86 +240,185 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-24 px-6 bg-navy-light/50">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16 reveal">
-                <p class="text-cyan text-sm font-medium tracking-widest uppercase mb-2">What I Know</p>
-                <h2 class="text-4xl font-bold text-white">Skills</h2>
+    <section id="skills" class="py-32 px-6 relative">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple/20 to-transparent"></div>
+        <!-- Subtle bg glow -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-cyan/3 rounded-full blur-[150px] pointer-events-none"></div>
+
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="mb-20 reveal">
+                <p class="text-purple text-xs font-mono tracking-[0.3em] uppercase mb-3">// skills</p>
+                <h2 class="text-4xl md:text-5xl font-bold text-white">Tech Stack &<br><span class="bg-gradient-to-r from-purple to-cyan bg-clip-text text-transparent">Expertise</span></h2>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-                <!-- Skill Card -->
-                <div class="skill-card bg-navy-light p-6 rounded-2xl border border-white/5 text-center hover:border-cyan/30 hover:shadow-lg hover:shadow-cyan/5 transition-all duration-300 reveal">
-                    <i class="fas fa-network-wired text-cyan text-3xl mb-4"></i>
-                    <h3 class="text-white font-semibold mb-1">MikroTik</h3>
-                    <p class="text-gray-500 text-xs">Network Config</p>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Skill 1 -->
+                <div class="skill-card group p-8 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-cyan/20 transition-all duration-500 relative overflow-hidden reveal">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-cyan/5 rounded-full blur-2xl translate-x-8 -translate-y-8 group-hover:bg-cyan/10 transition-all duration-700"></div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-cyan/10 border border-cyan/20 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-cyan/20 transition-all duration-500">
+                            <i class="fas fa-network-wired text-cyan text-xl"></i>
+                        </div>
+                        <h3 class="text-white font-bold text-lg mb-2">MikroTik</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed mb-4">Konfigurasi jaringan, routing, firewall, bandwidth management, dan troubleshooting.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-[10px] px-2.5 py-1 rounded-full bg-cyan/5 text-cyan/70 border border-cyan/10">RouterOS</span>
+                            <span class="text-[10px] px-2.5 py-1 rounded-full bg-cyan/5 text-cyan/70 border border-cyan/10">Firewall</span>
+                            <span class="text-[10px] px-2.5 py-1 rounded-full bg-cyan/5 text-cyan/70 border border-cyan/10">VLAN</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="skill-card bg-navy-light p-6 rounded-2xl border border-white/5 text-center hover:border-cyan/30 hover:shadow-lg hover:shadow-cyan/5 transition-all duration-300 reveal">
-                    <i class="fas fa-tools text-cyan text-3xl mb-4"></i>
-                    <h3 class="text-white font-semibold mb-1">Troubleshooting</h3>
-                    <p class="text-gray-500 text-xs">PC & Jaringan</p>
+
+                <!-- Skill 2 -->
+                <div class="skill-card group p-8 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-purple/20 transition-all duration-500 relative overflow-hidden reveal">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple/5 rounded-full blur-2xl translate-x-8 -translate-y-8 group-hover:bg-purple/10 transition-all duration-700"></div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-purple/10 border border-purple/20 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-purple/20 transition-all duration-500">
+                            <i class="fas fa-screwdriver-wrench text-purple text-xl"></i>
+                        </div>
+                        <h3 class="text-white font-bold text-lg mb-2">Troubleshooting</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed mb-4">Diagnosa dan perbaikan masalah hardware, software, serta infrastruktur jaringan.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-[10px] px-2.5 py-1 rounded-full bg-purple/5 text-purple/70 border border-purple/10">Hardware</span>
+                            <span class="text-[10px] px-2.5 py-1 rounded-full bg-purple/5 text-purple/70 border border-purple/10">Software</span>
+                            <span class="text-[10px] px-2.5 py-1 rounded-full bg-purple/5 text-purple/70 border border-purple/10">Network</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="skill-card bg-navy-light p-6 rounded-2xl border border-white/5 text-center hover:border-cyan/30 hover:shadow-lg hover:shadow-cyan/5 transition-all duration-300 reveal">
-                    <i class="fas fa-microchip text-cyan text-3xl mb-4"></i>
-                    <h3 class="text-white font-semibold mb-1">IoT</h3>
-                    <p class="text-gray-500 text-xs">Internet of Things</p>
+
+                <!-- Skill 3 -->
+                <div class="skill-card group p-8 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-cyan/20 transition-all duration-500 relative overflow-hidden reveal">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-cyan/5 rounded-full blur-2xl translate-x-8 -translate-y-8 group-hover:bg-cyan/10 transition-all duration-700"></div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-cyan/10 border border-cyan/20 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-cyan/20 transition-all duration-500">
+                            <i class="fas fa-microchip text-cyan text-xl"></i>
+                        </div>
+                        <h3 class="text-white font-bold text-lg mb-2">IoT</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed mb-4">Internet of Things — sensor, mikrokontroler, konektivitas, dan otomatisasi perangkat.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-[10px] px-2.5 py-1 rounded-full bg-cyan/5 text-cyan/70 border border-cyan/10">Arduino</span>
+                            <span class="text-[10px] px-2.5 py-1 rounded-full bg-cyan/5 text-cyan/70 border border-cyan/10">ESP32</span>
+                            <span class="text-[10px] px-2.5 py-1 rounded-full bg-cyan/5 text-cyan/70 border border-cyan/10">Sensors</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="skill-card bg-navy-light p-6 rounded-2xl border border-white/5 text-center hover:border-cyan/30 hover:shadow-lg hover:shadow-cyan/5 transition-all duration-300 reveal">
-                    <i class="fas fa-wand-magic-sparkles text-cyan text-3xl mb-4"></i>
-                    <h3 class="text-white font-semibold mb-1">Vibe Coding</h3>
-                    <p class="text-gray-500 text-xs">AI-Assisted Dev</p>
+
+                <!-- Skill 4 -->
+                <div class="skill-card group p-8 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-purple/20 transition-all duration-500 relative overflow-hidden reveal">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple/5 rounded-full blur-2xl translate-x-8 -translate-y-8 group-hover:bg-purple/10 transition-all duration-700"></div>
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-purple/10 border border-purple/20 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-purple/20 transition-all duration-500">
+                            <i class="fas fa-wand-magic-sparkles text-purple text-xl"></i>
+                        </div>
+                        <h3 class="text-white font-bold text-lg mb-2">Vibe Coding</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed mb-4">Membangun aplikasi web & mobile dengan bantuan AI — cepat, kreatif, dan eksploratif.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-[10px] px-2.5 py-1 rounded-full bg-purple/5 text-purple/70 border border-purple/10">AI-Assisted</span>
+                            <span class="text-[10px] px-2.5 py-1 rounded-full bg-purple/5 text-purple/70 border border-purple/10">Web</span>
+                            <span class="text-[10px] px-2.5 py-1 rounded-full bg-purple/5 text-purple/70 border border-purple/10">Mobile</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="skill-card bg-navy-light p-6 rounded-2xl border border-white/5 text-center hover:border-cyan/30 hover:shadow-lg hover:shadow-cyan/5 transition-all duration-300 reveal">
-                    <i class="fas fa-robot text-cyan text-3xl mb-4"></i>
-                    <h3 class="text-white font-semibold mb-1">AI Enthusiast</h3>
-                    <p class="text-gray-500 text-xs">Automation & Tools</p>
+
+                <!-- Skill 5 - spans 2 cols -->
+                <div class="skill-card group p-8 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-cyan/20 transition-all duration-500 relative overflow-hidden md:col-span-2 reveal">
+                    <div class="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-cyan/5 to-purple/5 rounded-full blur-3xl translate-x-12 -translate-y-12 group-hover:from-cyan/10 group-hover:to-purple/10 transition-all duration-700"></div>
+                    <div class="relative z-10 flex flex-col md:flex-row md:items-center gap-6">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan/10 to-purple/10 border border-cyan/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-cyan/20 transition-all duration-500">
+                            <i class="fas fa-robot text-xl bg-gradient-to-r from-cyan to-purple bg-clip-text text-transparent"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-white font-bold text-lg mb-2">AI Enthusiast</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed mb-4">Eksplorasi kecerdasan buatan untuk otomatisasi, pembuatan konten, dan pengembangan solusi digital. Selalu up-to-date dengan perkembangan AI terkini.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-[10px] px-2.5 py-1 rounded-full bg-cyan/5 text-cyan/70 border border-cyan/10">Automation</span>
+                                <span class="text-[10px] px-2.5 py-1 rounded-full bg-purple/5 text-purple/70 border border-purple/10">LLM</span>
+                                <span class="text-[10px] px-2.5 py-1 rounded-full bg-cyan/5 text-cyan/70 border border-cyan/10">Prompt Engineering</span>
+                                <span class="text-[10px] px-2.5 py-1 rounded-full bg-purple/5 text-purple/70 border border-purple/10">AI Tools</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="py-24 px-6">
+    <section id="experience" class="py-32 px-6 relative">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan/20 to-transparent"></div>
+
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16 reveal">
-                <p class="text-cyan text-sm font-medium tracking-widest uppercase mb-2">My Journey</p>
-                <h2 class="text-4xl font-bold text-white">Experience</h2>
+            <div class="mb-20 reveal">
+                <p class="text-cyan text-xs font-mono tracking-[0.3em] uppercase mb-3">// journey</p>
+                <h2 class="text-4xl md:text-5xl font-bold text-white">Experience &<br><span class="bg-gradient-to-r from-cyan to-purple bg-clip-text text-transparent">Education</span></h2>
             </div>
-            <div class="max-w-2xl mx-auto relative">
-                <!-- Timeline line -->
-                <div class="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-cyan/20 -translate-x-1/2"></div>
-                
+
+            <div class="max-w-3xl mx-auto space-y-8">
                 <!-- Timeline Item 1 -->
-                <div class="relative flex items-center mb-12 reveal">
-                    <div class="absolute left-6 md:left-1/2 w-4 h-4 bg-cyan rounded-full -translate-x-1/2 border-4 border-navy z-10"></div>
-                    <div class="ml-14 md:ml-0 md:w-1/2 md:pr-12 md:text-right">
-                        <div class="bg-navy-light p-6 rounded-2xl border border-white/5">
-                            <span class="text-cyan text-xs font-medium">SMK</span>
-                            <h3 class="text-white font-semibold mt-1">SMK Negeri 2 Surakarta</h3>
-                            <p class="text-gray-500 text-sm mt-1">Teknik Komputer dan Jaringan</p>
+                <div class="timeline-item group reveal">
+                    <div class="flex gap-6">
+                        <div class="flex flex-col items-center">
+                            <div class="w-12 h-12 rounded-2xl bg-cyan/10 border border-cyan/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-cyan/20 transition-all duration-500">
+                                <i class="fas fa-school text-cyan"></i>
+                            </div>
+                            <div class="w-px flex-1 bg-gradient-to-b from-cyan/20 to-transparent mt-4"></div>
+                        </div>
+                        <div class="pb-12 flex-1">
+                            <div class="p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-cyan/15 transition-all duration-500">
+                                <div class="flex flex-wrap items-center gap-3 mb-3">
+                                    <span class="text-[10px] px-3 py-1 rounded-full bg-cyan/10 text-cyan font-medium tracking-wide uppercase">SMK</span>
+                                    <span class="text-gray-600 text-xs">Surakarta</span>
+                                </div>
+                                <h3 class="text-white font-bold text-lg mb-1">SMK Negeri 2 Surakarta</h3>
+                                <p class="text-gray-500 text-sm">Teknik Komputer dan Jaringan (TKJ)</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Timeline Item 2 -->
-                <div class="relative flex items-center justify-end mb-12 reveal">
-                    <div class="absolute left-6 md:left-1/2 w-4 h-4 bg-cyan rounded-full -translate-x-1/2 border-4 border-navy z-10"></div>
-                    <div class="ml-14 md:ml-0 md:w-1/2 md:pl-12">
-                        <div class="bg-navy-light p-6 rounded-2xl border border-white/5">
-                            <span class="text-cyan text-xs font-medium">Kuliah</span>
-                            <h3 class="text-white font-semibold mt-1">Universitas Muhammadiyah Surakarta</h3>
-                            <p class="text-gray-500 text-sm mt-1">S1 Teknik Elektro</p>
+                <div class="timeline-item group reveal">
+                    <div class="flex gap-6">
+                        <div class="flex flex-col items-center">
+                            <div class="w-12 h-12 rounded-2xl bg-purple/10 border border-purple/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-purple/20 transition-all duration-500">
+                                <i class="fas fa-graduation-cap text-purple"></i>
+                            </div>
+                            <div class="w-px flex-1 bg-gradient-to-b from-purple/20 to-transparent mt-4"></div>
+                        </div>
+                        <div class="pb-12 flex-1">
+                            <div class="p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-purple/15 transition-all duration-500">
+                                <div class="flex flex-wrap items-center gap-3 mb-3">
+                                    <span class="text-[10px] px-3 py-1 rounded-full bg-purple/10 text-purple font-medium tracking-wide uppercase">S1</span>
+                                    <span class="text-gray-600 text-xs">Surakarta</span>
+                                </div>
+                                <h3 class="text-white font-bold text-lg mb-1">Universitas Muhammadiyah Surakarta</h3>
+                                <p class="text-gray-500 text-sm">Teknik Elektro</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Timeline Item 3 -->
-                <div class="relative flex items-center mb-12 reveal">
-                    <div class="absolute left-6 md:left-1/2 w-4 h-4 bg-cyan rounded-full -translate-x-1/2 border-4 border-navy z-10 animate-pulse"></div>
-                    <div class="ml-14 md:ml-0 md:w-1/2 md:pr-12 md:text-right">
-                        <div class="bg-navy-light p-6 rounded-2xl border border-cyan/20">
-                            <span class="text-cyan text-xs font-medium">Sekarang</span>
-                            <h3 class="text-white font-semibold mt-1">Universitas Duta Bangsa Surakarta</h3>
-                            <p class="text-gray-500 text-sm mt-1">Staff Teknisi — Tenaga Kependidikan</p>
+                <!-- Timeline Item 3 - Current -->
+                <div class="timeline-item group reveal">
+                    <div class="flex gap-6">
+                        <div class="flex flex-col items-center">
+                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan/20 to-purple/20 border border-cyan/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-cyan/20 transition-all duration-500 relative">
+                                <i class="fas fa-briefcase text-cyan"></i>
+                                <span class="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full border-2 border-navy animate-pulse"></span>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="p-6 rounded-2xl bg-white/[0.02] border border-cyan/15 hover:border-cyan/30 transition-all duration-500 relative overflow-hidden">
+                                <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-cyan/5 to-purple/5 rounded-full blur-2xl translate-x-8 -translate-y-8"></div>
+                                <div class="relative z-10">
+                                    <div class="flex flex-wrap items-center gap-3 mb-3">
+                                        <span class="text-[10px] px-3 py-1 rounded-full bg-gradient-to-r from-cyan/10 to-purple/10 text-cyan font-medium tracking-wide uppercase border border-cyan/20">Sekarang</span>
+                                        <span class="text-gray-600 text-xs">Surakarta</span>
+                                    </div>
+                                    <h3 class="text-white font-bold text-lg mb-1">Universitas Duta Bangsa Surakarta</h3>
+                                    <p class="text-gray-500 text-sm">Staff Teknisi — Tenaga Kependidikan</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -230,118 +427,157 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-24 px-6 bg-navy-light/50">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16 reveal">
-                <p class="text-cyan text-sm font-medium tracking-widest uppercase mb-2">What I've Built</p>
-                <h2 class="text-4xl font-bold text-white">Projects</h2>
-            </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project Placeholder 1 -->
-                <div class="group bg-navy-light rounded-2xl border border-white/5 overflow-hidden hover:border-cyan/20 transition-all duration-300 reveal">
-                    <div class="h-48 bg-gradient-to-br from-cyan/10 to-navy-lighter flex items-center justify-center">
-                        <i class="fas fa-code text-4xl text-cyan/30 group-hover:text-cyan/50 transition"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-white font-semibold text-lg mb-2">Coming Soon</h3>
-                        <p class="text-gray-500 text-sm mb-4">Project sedang dalam pengembangan. Stay tuned!</p>
-                        <div class="flex gap-2">
-                            <span class="text-xs bg-cyan/10 text-cyan px-3 py-1 rounded-full">TBA</span>
-                        </div>
-                    </div>
+    <section id="projects" class="py-32 px-6 relative">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple/20 to-transparent"></div>
+        <div class="absolute bottom-1/3 right-0 w-[500px] h-[500px] bg-purple/3 rounded-full blur-[150px] pointer-events-none"></div>
+
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-20 gap-6 reveal">
+                <div>
+                    <p class="text-purple text-xs font-mono tracking-[0.3em] uppercase mb-3">// projects</p>
+                    <h2 class="text-4xl md:text-5xl font-bold text-white">Featured<br><span class="bg-gradient-to-r from-purple to-cyan bg-clip-text text-transparent">Works</span></h2>
                 </div>
-                <!-- Project Placeholder 2 -->
-                <div class="group bg-navy-light rounded-2xl border border-white/5 overflow-hidden hover:border-cyan/20 transition-all duration-300 reveal">
-                    <div class="h-48 bg-gradient-to-br from-cyan/10 to-navy-lighter flex items-center justify-center">
-                        <i class="fas fa-mobile-alt text-4xl text-cyan/30 group-hover:text-cyan/50 transition"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-white font-semibold text-lg mb-2">Coming Soon</h3>
-                        <p class="text-gray-500 text-sm mb-4">Project sedang dalam pengembangan. Stay tuned!</p>
-                        <div class="flex gap-2">
-                            <span class="text-xs bg-cyan/10 text-cyan px-3 py-1 rounded-full">TBA</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Project Placeholder 3 -->
-                <div class="group bg-navy-light rounded-2xl border border-white/5 overflow-hidden hover:border-cyan/20 transition-all duration-300 reveal">
-                    <div class="h-48 bg-gradient-to-br from-cyan/10 to-navy-lighter flex items-center justify-center">
-                        <i class="fas fa-robot text-4xl text-cyan/30 group-hover:text-cyan/50 transition"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-white font-semibold text-lg mb-2">Coming Soon</h3>
-                        <p class="text-gray-500 text-sm mb-4">Project sedang dalam pengembangan. Stay tuned!</p>
-                        <div class="flex gap-2">
-                            <span class="text-xs bg-cyan/10 text-cyan px-3 py-1 rounded-full">TBA</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center mt-12 reveal">
-                <a href="https://github.com/D400150083" target="_blank" class="inline-flex items-center gap-2 text-cyan hover:text-white transition">
-                    <i class="fab fa-github"></i>
-                    <span>Lihat semua di GitHub</span>
-                    <i class="fas fa-arrow-right text-xs"></i>
+                <a href="https://github.com/D400150083" target="_blank" class="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-cyan transition-colors group">
+                    <span>View all on GitHub</span>
+                    <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Project 1 -->
+                <div class="project-card group rounded-3xl bg-white/[0.02] border border-white/5 overflow-hidden hover:border-cyan/20 transition-all duration-500 reveal">
+                    <div class="h-52 bg-gradient-to-br from-cyan/5 via-navy-lighter to-purple/5 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                                <i class="fas fa-code text-3xl text-cyan/40 group-hover:text-cyan/70 transition-colors"></i>
+                            </div>
+                        </div>
+                        <!-- Hover overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-4">
+                            <span class="text-xs text-gray-400">Coming Soon</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-white font-bold text-lg mb-2">Project #1</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed mb-4">Sedang dalam pengembangan. Stay tuned untuk update terbaru!</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex gap-2">
+                                <span class="text-[10px] px-2.5 py-1 rounded-full bg-cyan/5 text-cyan/60 border border-cyan/10">TBA</span>
+                            </div>
+                            <i class="fas fa-arrow-up-right-from-square text-gray-600 text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card group rounded-3xl bg-white/[0.02] border border-white/5 overflow-hidden hover:border-purple/20 transition-all duration-500 reveal">
+                    <div class="h-52 bg-gradient-to-br from-purple/5 via-navy-lighter to-cyan/5 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                                <i class="fas fa-mobile-screen-button text-3xl text-purple/40 group-hover:text-purple/70 transition-colors"></i>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-4">
+                            <span class="text-xs text-gray-400">Coming Soon</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-white font-bold text-lg mb-2">Project #2</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed mb-4">Sedang dalam pengembangan. Stay tuned untuk update terbaru!</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex gap-2">
+                                <span class="text-[10px] px-2.5 py-1 rounded-full bg-purple/5 text-purple/60 border border-purple/10">TBA</span>
+                            </div>
+                            <i class="fas fa-arrow-up-right-from-square text-gray-600 text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card group rounded-3xl bg-white/[0.02] border border-white/5 overflow-hidden hover:border-cyan/20 transition-all duration-500 reveal">
+                    <div class="h-52 bg-gradient-to-br from-cyan/5 via-navy-lighter to-purple/5 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                                <i class="fas fa-robot text-3xl text-cyan/40 group-hover:text-cyan/70 transition-colors"></i>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-4">
+                            <span class="text-xs text-gray-400">Coming Soon</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-white font-bold text-lg mb-2">Project #3</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed mb-4">Sedang dalam pengembangan. Stay tuned untuk update terbaru!</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex gap-2">
+                                <span class="text-[10px] px-2.5 py-1 rounded-full bg-cyan/5 text-cyan/60 border border-cyan/10">TBA</span>
+                            </div>
+                            <i class="fas fa-arrow-up-right-from-square text-gray-600 text-xs"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-24 px-6">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16 reveal">
-                <p class="text-cyan text-sm font-medium tracking-widest uppercase mb-2">Get In Touch</p>
-                <h2 class="text-4xl font-bold text-white">Contact Me</h2>
-                <p class="text-gray-500 mt-4 max-w-md mx-auto">Ada ide kolaborasi atau sekadar mau ngobrol? Jangan ragu hubungi saya.</p>
+    <section id="contact" class="py-32 px-6 relative">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan/20 to-transparent"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan/3 rounded-full blur-[150px] pointer-events-none"></div>
+
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="text-center mb-20 reveal">
+                <p class="text-cyan text-xs font-mono tracking-[0.3em] uppercase mb-3">// contact</p>
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Let's Work<br><span class="bg-gradient-to-r from-cyan to-purple bg-clip-text text-transparent">Together</span></h2>
+                <p class="text-gray-500 max-w-md mx-auto">Ada ide kolaborasi atau sekadar mau ngobrol soal teknologi? Jangan ragu untuk reach out.</p>
             </div>
-            
-            <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-                <!-- Contact Info -->
-                <div class="space-y-6 reveal">
-                    <a href="mailto:erri0116@gmail.com" class="flex items-center gap-4 p-4 bg-navy-light rounded-xl border border-white/5 hover:border-cyan/20 transition group">
-                        <div class="w-12 h-12 bg-cyan/10 rounded-xl flex items-center justify-center">
-                            <i class="fas fa-envelope text-cyan"></i>
+
+            <div class="max-w-4xl mx-auto">
+                <!-- Primary contact -->
+                <div class="grid md:grid-cols-2 gap-6 mb-8 reveal">
+                    <a href="mailto:erri0116@gmail.com" class="group p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-cyan/20 transition-all duration-500 flex items-center gap-5">
+                        <div class="w-14 h-14 rounded-2xl bg-cyan/10 border border-cyan/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-cyan/20 transition-all duration-500">
+                            <i class="fas fa-envelope text-cyan text-lg"></i>
                         </div>
                         <div>
-                            <p class="text-gray-500 text-xs">Email</p>
-                            <p class="text-white group-hover:text-cyan transition">erri0116@gmail.com</p>
+                            <p class="text-gray-600 text-xs font-medium uppercase tracking-wider mb-1">Email</p>
+                            <p class="text-white font-medium group-hover:text-cyan transition-colors">erri0116@gmail.com</p>
                         </div>
                     </a>
-                    <a href="https://wa.me/qr" target="_blank" class="flex items-center gap-4 p-4 bg-navy-light rounded-xl border border-white/5 hover:border-cyan/20 transition group">
-                        <div class="w-12 h-12 bg-cyan/10 rounded-xl flex items-center justify-center">
-                            <i class="fab fa-whatsapp text-cyan text-xl"></i>
+                    <div class="group p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-emerald-500/20 transition-all duration-500 flex items-center gap-5">
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-emerald-500/20 transition-all duration-500">
+                            <i class="fab fa-whatsapp text-emerald-400 text-xl"></i>
                         </div>
                         <div>
-                            <p class="text-gray-500 text-xs">WhatsApp</p>
-                            <p class="text-white group-hover:text-cyan transition">@erri.e</p>
+                            <p class="text-gray-600 text-xs font-medium uppercase tracking-wider mb-1">WhatsApp</p>
+                            <p class="text-white font-medium group-hover:text-emerald-400 transition-colors">@erri.e</p>
                         </div>
-                    </a>
+                    </div>
                 </div>
 
-                <!-- Social Media Links -->
+                <!-- Social media grid -->
                 <div class="reveal">
-                    <p class="text-gray-400 mb-6 font-medium">Social Media</p>
-                    <div class="grid grid-cols-2 gap-4">
-                        <a href="https://github.com/D400150083" target="_blank" class="flex items-center gap-3 p-4 bg-navy-light rounded-xl border border-white/5 hover:border-cyan/20 transition group">
-                            <i class="fab fa-github text-xl text-gray-400 group-hover:text-cyan transition"></i>
-                            <span class="text-sm text-gray-400 group-hover:text-white transition">GitHub</span>
+                    <p class="text-gray-600 text-xs font-medium uppercase tracking-wider mb-4 text-center">Social Media</p>
+                    <div class="grid grid-cols-3 md:grid-cols-5 gap-4">
+                        <a href="https://github.com/D400150083" target="_blank" class="social-card group p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all duration-500 text-center">
+                            <i class="fab fa-github text-2xl text-gray-500 group-hover:text-white group-hover:scale-110 transition-all duration-300 block mb-2"></i>
+                            <span class="text-[10px] text-gray-600 group-hover:text-gray-400 transition-colors">GitHub</span>
                         </a>
-                        <a href="https://www.facebook.com/erri.lpunderground/" target="_blank" class="flex items-center gap-3 p-4 bg-navy-light rounded-xl border border-white/5 hover:border-cyan/20 transition group">
-                            <i class="fab fa-facebook text-xl text-gray-400 group-hover:text-cyan transition"></i>
-                            <span class="text-sm text-gray-400 group-hover:text-white transition">Facebook</span>
+                        <a href="https://www.instagram.com/erri.er/" target="_blank" class="social-card group p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-pink-500/20 transition-all duration-500 text-center">
+                            <i class="fab fa-instagram text-2xl text-gray-500 group-hover:text-pink-500 group-hover:scale-110 transition-all duration-300 block mb-2"></i>
+                            <span class="text-[10px] text-gray-600 group-hover:text-gray-400 transition-colors">Instagram</span>
                         </a>
-                        <a href="https://www.instagram.com/erri.er/" target="_blank" class="flex items-center gap-3 p-4 bg-navy-light rounded-xl border border-white/5 hover:border-cyan/20 transition group">
-                            <i class="fab fa-instagram text-xl text-gray-400 group-hover:text-cyan transition"></i>
-                            <span class="text-sm text-gray-400 group-hover:text-white transition">Instagram</span>
+                        <a href="https://www.facebook.com/erri.lpunderground/" target="_blank" class="social-card group p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-blue-500/20 transition-all duration-500 text-center">
+                            <i class="fab fa-facebook text-2xl text-gray-500 group-hover:text-blue-500 group-hover:scale-110 transition-all duration-300 block mb-2"></i>
+                            <span class="text-[10px] text-gray-600 group-hover:text-gray-400 transition-colors">Facebook</span>
                         </a>
-                        <a href="https://www.threads.com/@erri.er" target="_blank" class="flex items-center gap-3 p-4 bg-navy-light rounded-xl border border-white/5 hover:border-cyan/20 transition group">
-                            <i class="fab fa-threads text-xl text-gray-400 group-hover:text-cyan transition"></i>
-                            <span class="text-sm text-gray-400 group-hover:text-white transition">Threads</span>
+                        <a href="https://www.threads.com/@erri.er" target="_blank" class="social-card group p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all duration-500 text-center">
+                            <i class="fab fa-threads text-2xl text-gray-500 group-hover:text-white group-hover:scale-110 transition-all duration-300 block mb-2"></i>
+                            <span class="text-[10px] text-gray-600 group-hover:text-gray-400 transition-colors">Threads</span>
                         </a>
-                        <a href="https://www.tiktok.com/@rri.id" target="_blank" class="flex items-center gap-3 p-4 bg-navy-light rounded-xl border border-white/5 hover:border-cyan/20 transition group">
-                            <i class="fab fa-tiktok text-xl text-gray-400 group-hover:text-cyan transition"></i>
-                            <span class="text-sm text-gray-400 group-hover:text-white transition">TikTok</span>
+                        <a href="https://www.tiktok.com/@rri.id" target="_blank" class="social-card group p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all duration-500 text-center">
+                            <i class="fab fa-tiktok text-2xl text-gray-500 group-hover:text-white group-hover:scale-110 transition-all duration-300 block mb-2"></i>
+                            <span class="text-[10px] text-gray-600 group-hover:text-gray-400 transition-colors">TikTok</span>
                         </a>
                     </div>
                 </div>
@@ -351,9 +587,12 @@
 
     <!-- Footer -->
     <footer class="py-8 px-6 border-t border-white/5">
-        <div class="max-w-6xl mx-auto text-center">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <p class="text-gray-600 text-sm">
-                &copy; 2025 Erri Erwantoro. Built with <span class="text-cyan">&hearts;</span> and Tailwind CSS.
+                &copy; 2025 Erri Erwantoro
+            </p>
+            <p class="text-gray-700 text-xs">
+                Crafted with <span class="text-cyan">precision</span> & Tailwind CSS
             </p>
         </div>
     </footer>
