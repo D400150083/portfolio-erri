@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erri Erwantoro — Digital Creator</title>
+    <meta name="description" content="Portfolio Erri Erwantoro — Digital Creator, AI Enthusiast, IoT & Networking.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#0f172a',
+                        'navy-light': '#1e293b',
+                        'navy-lighter': '#334155',
+                        cyan: '#38bdf8',
+                        'cyan-dark': '#0ea5e9',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-navy text-gray-300 font-sans">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 bg-navy/80 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#hero" class="text-xl font-bold text-white tracking-tight">
+                Erri<span class="text-cyan">.</span>
+            </a>
+            <!-- Desktop Menu -->
+            <ul class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <li><a href="#about" class="nav-link hover:text-cyan transition">About</a></li>
+                <li><a href="#skills" class="nav-link hover:text-cyan transition">Skills</a></li>
+                <li><a href="#experience" class="nav-link hover:text-cyan transition">Experience</a></li>
+                <li><a href="#projects" class="nav-link hover:text-cyan transition">Projects</a></li>
+                <li><a href="#contact" class="nav-link hover:text-cyan transition">Contact</a></li>
+            </ul>
+            <!-- Mobile Hamburger -->
+            <button id="hamburger" class="md:hidden text-white text-2xl focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <ul class="flex flex-col gap-4 text-sm font-medium">
+                <li><a href="#about" class="mobile-link hover:text-cyan transition">About</a></li>
+                <li><a href="#skills" class="mobile-link hover:text-cyan transition">Skills</a></li>
+                <li><a href="#experience" class="mobile-link hover:text-cyan transition">Experience</a></li>
+                <li><a href="#projects" class="mobile-link hover:text-cyan transition">Projects</a></li>
+                <li><a href="#contact" class="mobile-link hover:text-cyan transition">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <!-- Background gradient blobs -->
+        <div class="absolute top-1/4 -left-32 w-96 h-96 bg-cyan/10 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-cyan/5 rounded-full blur-3xl animate-pulse-slow delay-1000"></div>
+        
+        <div class="text-center px-6 z-10 reveal">
+            <p class="text-cyan font-medium text-sm md:text-base tracking-widest uppercase mb-4 animate-fade-in">Hello, I'm</p>
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-4 animate-slide-up">
+                Erri Erwantoro
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-400 mb-8 animate-slide-up delay-200">
+                Digital Creator <span class="text-cyan">|</span> AI Enthusiast
+            </p>
+            <p class="max-w-xl mx-auto text-gray-500 mb-10 animate-fade-in delay-400">
+                Suka eksplorasi hal baru, terutama yang berhubungan dengan teknologi.
+            </p>
+            <div class="flex items-center justify-center gap-4 animate-fade-in delay-600">
+                <a href="#contact" class="bg-cyan hover:bg-cyan-dark text-navy font-semibold px-8 py-3 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-cyan/25">
+                    Get In Touch
+                </a>
+                <a href="#about" class="border border-cyan/30 text-cyan hover:bg-cyan/10 px-8 py-3 rounded-full transition-all duration-300">
+                    About Me
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-cyan/50 text-xl"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <p class="text-cyan text-sm font-medium tracking-widest uppercase mb-2">Get To Know</p>
+                <h2 class="text-4xl font-bold text-white">About Me</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Avatar / Decorative -->
+                <div class="flex justify-center reveal">
+                    <div class="relative">
+                        <div class="w-64 h-64 md:w-80 md:h-80 rounded-2xl bg-gradient-to-br from-cyan/20 to-navy-lighter overflow-hidden border border-cyan/10 flex items-center justify-center">
+                            <i class="fas fa-user-astronaut text-8xl text-cyan/30"></i>
+                        </div>
+                        <div class="absolute -bottom-4 -right-4 w-64 h-64 md:w-80 md:h-80 rounded-2xl border border-cyan/20 -z-10"></div>
+                    </div>
+                </div>
+                <!-- About Text -->
+                <div class="reveal">
+                    <p class="text-gray-400 leading-relaxed mb-6">
+                        Saya <span class="text-white font-semibold">Erri Erwantoro</span>, seorang Digital Creator yang selalu antusias mencoba hal-hal baru, terutama yang berkaitan dengan dunia teknologi.
+                    </p>
+                    <p class="text-gray-400 leading-relaxed mb-6">
+                        Lulusan <span class="text-white">SMK Negeri 2 Surakarta</span> jurusan Teknik Komputer dan Jaringan, kemudian melanjutkan studi di <span class="text-white">Universitas Muhammadiyah Surakarta</span> jurusan Teknik Elektro.
+                    </p>
+                    <p class="text-gray-400 leading-relaxed mb-8">
+                        Saat ini sedang gemar ngulik AI — mulai dari otomatisasi hingga iseng bikin web, aplikasi komputer, maupun Android. Bagi saya, teknologi bukan sekadar alat, tapi playground yang nggak ada habisnya.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-navy-light p-4 rounded-xl border border-white/5 text-center">
+                            <i class="fas fa-graduation-cap text-cyan text-2xl mb-2"></i>
+                            <p class="text-white font-semibold text-lg">S1</p>
+                            <p class="text-gray-500 text-sm">Teknik Elektro</p>
+                        </div>
+                        <div class="bg-navy-light p-4 rounded-xl border border-white/5 text-center">
+                            <i class="fas fa-briefcase text-cyan text-2xl mb-2"></i>
+                            <p class="text-white font-semibold text-lg">Teknisi</p>
+                            <p class="text-gray-500 text-sm">Univ. Duta Bangsa</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 px-6 bg-navy-light/50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <p class="text-cyan text-sm font-medium tracking-widest uppercase mb-2">What I Know</p>
+                <h2 class="text-4xl font-bold text-white">Skills</h2>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <!-- Skill Card -->
+                <div class="skill-card bg-navy-light p-6 rounded-2xl border border-white/5 text-center hover:border-cyan/30 hover:shadow-lg hover:shadow-cyan/5 transition-all duration-300 reveal">
+                    <i class="fas fa-network-wired text-cyan text-3xl mb-4"></i>
+                    <h3 class="text-white font-semibold mb-1">MikroTik</h3>
+                    <p class="text-gray-500 text-xs">Network Config</p>
+                </div>
+                <div class="skill-card bg-navy-light p-6 rounded-2xl border border-white/5 text-center hover:border-cyan/30 hover:shadow-lg hover:shadow-cyan/5 transition-all duration-300 reveal">
+                    <i class="fas fa-tools text-cyan text-3xl mb-4"></i>
+                    <h3 class="text-white font-semibold mb-1">Troubleshooting</h3>
+                    <p class="text-gray-500 text-xs">PC & Jaringan</p>
+                </div>
+                <div class="skill-card bg-navy-light p-6 rounded-2xl border border-white/5 text-center hover:border-cyan/30 hover:shadow-lg hover:shadow-cyan/5 transition-all duration-300 reveal">
+                    <i class="fas fa-microchip text-cyan text-3xl mb-4"></i>
+                    <h3 class="text-white font-semibold mb-1">IoT</h3>
+                    <p class="text-gray-500 text-xs">Internet of Things</p>
+                </div>
+                <div class="skill-card bg-navy-light p-6 rounded-2xl border border-white/5 text-center hover:border-cyan/30 hover:shadow-lg hover:shadow-cyan/5 transition-all duration-300 reveal">
+                    <i class="fas fa-wand-magic-sparkles text-cyan text-3xl mb-4"></i>
+                    <h3 class="text-white font-semibold mb-1">Vibe Coding</h3>
+                    <p class="text-gray-500 text-xs">AI-Assisted Dev</p>
+                </div>
+                <div class="skill-card bg-navy-light p-6 rounded-2xl border border-white/5 text-center hover:border-cyan/30 hover:shadow-lg hover:shadow-cyan/5 transition-all duration-300 reveal">
+                    <i class="fas fa-robot text-cyan text-3xl mb-4"></i>
+                    <h3 class="text-white font-semibold mb-1">AI Enthusiast</h3>
+                    <p class="text-gray-500 text-xs">Automation & Tools</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <p class="text-cyan text-sm font-medium tracking-widest uppercase mb-2">My Journey</p>
+                <h2 class="text-4xl font-bold text-white">Experience</h2>
+            </div>
+            <div class="max-w-2xl mx-auto relative">
+                <!-- Timeline line -->
+                <div class="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-cyan/20 -translate-x-1/2"></div>
+                
+                <!-- Timeline Item 1 -->
+                <div class="relative flex items-center mb-12 reveal">
+                    <div class="absolute left-6 md:left-1/2 w-4 h-4 bg-cyan rounded-full -translate-x-1/2 border-4 border-navy z-10"></div>
+                    <div class="ml-14 md:ml-0 md:w-1/2 md:pr-12 md:text-right">
+                        <div class="bg-navy-light p-6 rounded-2xl border border-white/5">
+                            <span class="text-cyan text-xs font-medium">SMK</span>
+                            <h3 class="text-white font-semibold mt-1">SMK Negeri 2 Surakarta</h3>
+                            <p class="text-gray-500 text-sm mt-1">Teknik Komputer dan Jaringan</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="relative flex items-center justify-end mb-12 reveal">
+                    <div class="absolute left-6 md:left-1/2 w-4 h-4 bg-cyan rounded-full -translate-x-1/2 border-4 border-navy z-10"></div>
+                    <div class="ml-14 md:ml-0 md:w-1/2 md:pl-12">
+                        <div class="bg-navy-light p-6 rounded-2xl border border-white/5">
+                            <span class="text-cyan text-xs font-medium">Kuliah</span>
+                            <h3 class="text-white font-semibold mt-1">Universitas Muhammadiyah Surakarta</h3>
+                            <p class="text-gray-500 text-sm mt-1">S1 Teknik Elektro</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="relative flex items-center mb-12 reveal">
+                    <div class="absolute left-6 md:left-1/2 w-4 h-4 bg-cyan rounded-full -translate-x-1/2 border-4 border-navy z-10 animate-pulse"></div>
+                    <div class="ml-14 md:ml-0 md:w-1/2 md:pr-12 md:text-right">
+                        <div class="bg-navy-light p-6 rounded-2xl border border-cyan/20">
+                            <span class="text-cyan text-xs font-medium">Sekarang</span>
+                            <h3 class="text-white font-semibold mt-1">Universitas Duta Bangsa Surakarta</h3>
+                            <p class="text-gray-500 text-sm mt-1">Staff Teknisi — Tenaga Kependidikan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 px-6 bg-navy-light/50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <p class="text-cyan text-sm font-medium tracking-widest uppercase mb-2">What I've Built</p>
+                <h2 class="text-4xl font-bold text-white">Projects</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Placeholder 1 -->
+                <div class="group bg-navy-light rounded-2xl border border-white/5 overflow-hidden hover:border-cyan/20 transition-all duration-300 reveal">
+                    <div class="h-48 bg-gradient-to-br from-cyan/10 to-navy-lighter flex items-center justify-center">
+                        <i class="fas fa-code text-4xl text-cyan/30 group-hover:text-cyan/50 transition"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-white font-semibold text-lg mb-2">Coming Soon</h3>
+                        <p class="text-gray-500 text-sm mb-4">Project sedang dalam pengembangan. Stay tuned!</p>
+                        <div class="flex gap-2">
+                            <span class="text-xs bg-cyan/10 text-cyan px-3 py-1 rounded-full">TBA</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Placeholder 2 -->
+                <div class="group bg-navy-light rounded-2xl border border-white/5 overflow-hidden hover:border-cyan/20 transition-all duration-300 reveal">
+                    <div class="h-48 bg-gradient-to-br from-cyan/10 to-navy-lighter flex items-center justify-center">
+                        <i class="fas fa-mobile-alt text-4xl text-cyan/30 group-hover:text-cyan/50 transition"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-white font-semibold text-lg mb-2">Coming Soon</h3>
+                        <p class="text-gray-500 text-sm mb-4">Project sedang dalam pengembangan. Stay tuned!</p>
+                        <div class="flex gap-2">
+                            <span class="text-xs bg-cyan/10 text-cyan px-3 py-1 rounded-full">TBA</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Placeholder 3 -->
+                <div class="group bg-navy-light rounded-2xl border border-white/5 overflow-hidden hover:border-cyan/20 transition-all duration-300 reveal">
+                    <div class="h-48 bg-gradient-to-br from-cyan/10 to-navy-lighter flex items-center justify-center">
+                        <i class="fas fa-robot text-4xl text-cyan/30 group-hover:text-cyan/50 transition"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-white font-semibold text-lg mb-2">Coming Soon</h3>
+                        <p class="text-gray-500 text-sm mb-4">Project sedang dalam pengembangan. Stay tuned!</p>
+                        <div class="flex gap-2">
+                            <span class="text-xs bg-cyan/10 text-cyan px-3 py-1 rounded-full">TBA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12 reveal">
+                <a href="https://github.com/D400150083" target="_blank" class="inline-flex items-center gap-2 text-cyan hover:text-white transition">
+                    <i class="fab fa-github"></i>
+                    <span>Lihat semua di GitHub</span>
+                    <i class="fas fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <p class="text-cyan text-sm font-medium tracking-widest uppercase mb-2">Get In Touch</p>
+                <h2 class="text-4xl font-bold text-white">Contact Me</h2>
+                <p class="text-gray-500 mt-4 max-w-md mx-auto">Ada ide kolaborasi atau sekadar mau ngobrol? Jangan ragu hubungi saya.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                <!-- Contact Info -->
+                <div class="space-y-6 reveal">
+                    <a href="mailto:erri0116@gmail.com" class="flex items-center gap-4 p-4 bg-navy-light rounded-xl border border-white/5 hover:border-cyan/20 transition group">
+                        <div class="w-12 h-12 bg-cyan/10 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-envelope text-cyan"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-xs">Email</p>
+                            <p class="text-white group-hover:text-cyan transition">erri0116@gmail.com</p>
+                        </div>
+                    </a>
+                    <a href="https://wa.me/qr" target="_blank" class="flex items-center gap-4 p-4 bg-navy-light rounded-xl border border-white/5 hover:border-cyan/20 transition group">
+                        <div class="w-12 h-12 bg-cyan/10 rounded-xl flex items-center justify-center">
+                            <i class="fab fa-whatsapp text-cyan text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-xs">WhatsApp</p>
+                            <p class="text-white group-hover:text-cyan transition">@erri.e</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Social Media Links -->
+                <div class="reveal">
+                    <p class="text-gray-400 mb-6 font-medium">Social Media</p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <a href="https://github.com/D400150083" target="_blank" class="flex items-center gap-3 p-4 bg-navy-light rounded-xl border border-white/5 hover:border-cyan/20 transition group">
+                            <i class="fab fa-github text-xl text-gray-400 group-hover:text-cyan transition"></i>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition">GitHub</span>
+                        </a>
+                        <a href="https://www.facebook.com/erri.lpunderground/" target="_blank" class="flex items-center gap-3 p-4 bg-navy-light rounded-xl border border-white/5 hover:border-cyan/20 transition group">
+                            <i class="fab fa-facebook text-xl text-gray-400 group-hover:text-cyan transition"></i>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition">Facebook</span>
+                        </a>
+                        <a href="https://www.instagram.com/erri.er/" target="_blank" class="flex items-center gap-3 p-4 bg-navy-light rounded-xl border border-white/5 hover:border-cyan/20 transition group">
+                            <i class="fab fa-instagram text-xl text-gray-400 group-hover:text-cyan transition"></i>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition">Instagram</span>
+                        </a>
+                        <a href="https://www.threads.com/@erri.er" target="_blank" class="flex items-center gap-3 p-4 bg-navy-light rounded-xl border border-white/5 hover:border-cyan/20 transition group">
+                            <i class="fab fa-threads text-xl text-gray-400 group-hover:text-cyan transition"></i>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition">Threads</span>
+                        </a>
+                        <a href="https://www.tiktok.com/@rri.id" target="_blank" class="flex items-center gap-3 p-4 bg-navy-light rounded-xl border border-white/5 hover:border-cyan/20 transition group">
+                            <i class="fab fa-tiktok text-xl text-gray-400 group-hover:text-cyan transition"></i>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition">TikTok</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-6 border-t border-white/5">
+        <div class="max-w-6xl mx-auto text-center">
+            <p class="text-gray-600 text-sm">
+                &copy; 2025 Erri Erwantoro. Built with <span class="text-cyan">&hearts;</span> and Tailwind CSS.
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
